@@ -1,5 +1,5 @@
 import torch
-import torch.nn as nn
+import torch.nn as nn  # torch.nnはレイヤーや活性化関数などのニューラルネットワーク構築要素をまとめたモジュールである。
 import torch.nn.functional as F
 
 # ハイパーパラメータ
@@ -13,7 +13,7 @@ seq_len = 32         # 最大系列長
 
 # PyTorchのニューラルネットワーク用モジュール
 class TransformerBlock(nn.Module):
-    # TODO:引数説明コメント torch.nn PyTorch ニューラルネットワーク用モジュール
+    # embed_dimは埋め込みベクトルの次元数、num_headsはマルチヘッド注意のヘッド数を指定する引数である。
     
     def __init__(self, embed_dim, num_heads):
         super().__init__()
@@ -55,7 +55,7 @@ class MiniGPT(nn.Module):
 # モデルとダミーデータ
 model = MiniGPT()
 
-# TODO:入力説明コメント 
+# torch.randintで語彙IDの乱数列をバッチ2件分生成する入力である。
 # torch.randint — PyTorch 2.8 documentation
 # https://docs.pytorch.org/docs/stable/generated/torch.randint.html
 x = torch.randint(0, vocab_size, (2, seq_len))  # ダミー入力
