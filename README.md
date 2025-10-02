@@ -4,6 +4,12 @@ This repository collects small PyTorch experiments ranging from linear models to
 
 ## Getting Started
 - `llm_tutorial_1/requirements.txt` lists the minimal Python packages (PyTorch trio + Matplotlib).
+- Set up a virtual environment before running the samples:
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -r llm_tutorial_1/requirements.txt
+```
 - Each script is self-contained; run it with `python <script>` to reproduce the printed outputs or plots.
 
 ## Experiments
