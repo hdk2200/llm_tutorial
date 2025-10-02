@@ -29,7 +29,7 @@ train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
 test_loader  = DataLoader(test_dataset, batch_size=1000, shuffle=False)
 
 # -------------------------
-# 2. モデル定義 (MLP)
+# 2. モデル定義  MLP（多層パーセプトロン, Multi-Layer Perceptron） を使った方法
 # -------------------------
 class SimpleNet(nn.Module):
     def __init__(self):
