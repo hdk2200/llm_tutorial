@@ -2,36 +2,36 @@
 
 This repository collects small PyTorch experiments ranging from linear models to miniature Transformer blocks.
 
-## Getting Started
-- `llm_tutorial_1/requirements.txt` lists the minimal Python packages (PyTorch trio + Matplotlib).
-- Set up a virtual environment before running the samples:
+## プロジェクト構成
+- `llm_tutorial_1/`
+  - `learn.py`: 3 次元入力に対する線形回帰タスクを `nn.Linear` + `MSELoss` で学習するデモ。
+  - `learn_classify.py`: 犬/猫の特徴量を使った 2 クラス分類。Apple Silicon の MPS バックエンドがあれば自動で利用。
+  - `learn_class_decision_boundary.py`: 上記分類器の決定境界をメッシュグリッドで可視化し、`images/learn_class_decision_boundary.png` を生成。
+  - `minllm.py`: 変換ブロックを組み合わせた小型 GPT 風モデルを定義し、ランダムトークンに対する出力テンソル形状を確認。
+  - `simplenet.py`: 単一の全結合層 + ReLU でランダム入力の流れと追加線形層の重み/バイアスを観察。
+- `llm_tutorial_mnist/`
+  - `mnist.py`: MNIST データセットを使って手書き数字分類器を学習し、損失と精度をレポート。
+- `images/`: チュートリアルの可視化結果を保存するディレクトリ。
+- `requirements.txt`: PyTorch トリオと Matplotlib を含む最小構成の依存パッケージ一覧。
+
+## セットアップ
+1. 仮想環境を作成して有効化します。
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+2. 依存関係をインストールします。
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+## 実行方法
+各スクリプトは自己完結型なので、目的のサブフォルダに移動して `python <script>` を実行するだけで、出力や可視化を再現できます。
+
+### 例
 ```bash
-python3 -m venv venv
-source venv/bin/activate
-pip install -r llm_tutorial_1/requirements.txt
+cd llm_tutorial_1
+python learn_classify.py
 ```
-- Each script is self-contained; run it with `python <script>` to reproduce the printed outputs or plots.
-
-## Experiments
-
-### llm_tutorial_1/minllm.py
-- Defines a tiny GPT-like model composed of Transformer blocks with multi-head self-attention and MLP layers.
-- Sends random token indices through the network and prints the resulting `(batch, seq, vocab)` tensor shape.
-
-### llm_tutorial_1/simplenet.py
-- Implements a single fully connected layer followed by ReLU and inspects how random inputs propagate.
-- Logs input/output tensor shapes and samples the weight/bias values of an extra linear layer for intuition.
-
-### llm_tutorial_1/learn.py
-- Demonstrates supervised learning for a regression task using `nn.Linear` and `MSELoss`.
-- Trains on random 3D inputs with stochastic gradient descent and reports the epoch-wise loss.
-
-### llm_tutorial_1/learn_classify.py
-- Builds a minimal 2-class classifier that can leverage Apple Silicon's MPS backend when available.
-- Trains on toy "dog vs cat" features, then evaluates single and batched samples while printing logits, probabilities, and predicted classes.
-
-### llm_tutorial_1/learn_class_decision_boundary.py
-- Reuses the binary classifier to visualize its decision regions over a mesh grid.
-- Saves/uses the following plot to illustrate how the learned boundary separates the toy dataset.
 
 ![犬と猫の分類境界](images/learn_class_decision_boundary.png)
