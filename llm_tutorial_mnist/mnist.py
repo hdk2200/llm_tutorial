@@ -18,6 +18,13 @@ transform = transforms.ToTensor()
 train_dataset = datasets.MNIST(root="./data", train=True, download=True, transform=transform)
 test_dataset  = datasets.MNIST(root="./data", train=False, download=True, transform=transform)
 
+print("訓練データ:", len(train_dataset))  
+print("テストデータ:", len(test_dataset)) 
+
+image, label = train_dataset[0]
+print("1枚の画像サイズ:", image.shape)  # torch.Size([1, 28, 28])
+print("ラベル:", label)                  # 例: 5
+
 train_loader = DataLoader(train_dataset, batch_size=64, shuffle=True)
 test_loader  = DataLoader(test_dataset, batch_size=1000, shuffle=False)
 
@@ -27,11 +34,17 @@ test_loader  = DataLoader(test_dataset, batch_size=1000, shuffle=False)
 class SimpleNet(nn.Module):
     def __init__(self):
         super().__init__()
-        self.fc1 = nn.Linear(28*28, 100)
+        self.fc1 = nn.Linear(28*28, 100)  
         self.fc2 = nn.Linear(100, 10)
 
     def forward(self, x):
-        x = x.view(-1, 28*28)   # 28x28画像 → ベクトル
+        # nn.Linear の線形変換 を使って
+        # 784 (ピクセル) → 100 (隠れ特徴) → 10 (クラススコア)
+        # に変換するモデル
+        # nn.Linearの
+
+        # print ("入力サイズ:", x.shape)  # 例: torch.Size([64, 1, 28, 28]) 
+        x = x.view(-1, 28*28)   # 28x28画像 → ベクトル。画像の2次元構造（28×28）は無視して、28×28 の画像を 1次元ベクトル（784要素の並び） に変える
         x = torch.relu(self.fc1(x))
         x = self.fc2(x)
         return x
@@ -43,6 +56,9 @@ model = SimpleNet().to(device)  # モデルをMPSに移動
 # -------------------------
 loss_fn = nn.CrossEntropyLoss()
 optimizer = optim.SGD(model.parameters(), lr=0.1)
+
+print("model.parameters:",model.parameters())
+
 
 # -------------------------
 # 4. 学習ループ
