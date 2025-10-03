@@ -11,6 +11,10 @@ PyTorch を使った小さな機械学習/LLM 実験をまとめたリポジト�
   - `simplenet.py`: 単一の全結合層 + ReLU でランダム入力の流れと追加線形層の重み/バイアスを観察。
 - `02_pythorch_mnist/`
   - `mnist.py`: MNIST データセットを使って手書き数字分類器を学習し、損失と精度をレポート。
+  - `load_and_infer.py`: 学習済み `mnist_mlp.pth` を読み込み、テスト画像の予測ラベルと正解ラベルを並べて可視化。
+  - `mnist_dummydata_weightconfirm.py`: ランダム生成したダミーデータで学習を回し、`fc1.weight` の平均値を逐次表示して重み更新を観察。
+  - `mnistview.py`: DataLoader から取り出した 4 枚の手書き数字を並べて表示。
+  - `mnistview100.py`: テストデータセット先頭 100 枚を 10×10 グリッドに並べて一括表示。
 - `images/`: チュートリアルの可視化結果を保存するディレクトリ。
 - `requirements.txt`: PyTorch と Matplotlib を含む最小構成の依存パッケージ一覧。
 
