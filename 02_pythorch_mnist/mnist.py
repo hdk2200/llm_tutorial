@@ -89,3 +89,11 @@ with torch.no_grad():
         total += target.size(0)
 
 print(f"Test Accuracy: {correct/total:.4f}")
+
+
+# -------------------------
+# 6. モデルの保存
+# -------------------------
+torch.save(model.state_dict(), "mnist_mlp.pth")
+print("学習済みモデルを保存しました: mnist_mlp.pth")
+
