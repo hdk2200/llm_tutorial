@@ -1,13 +1,13 @@
 # LLM Tutorial
 
-PyTorch を使った小さな機械学習/LLM 実験をまとめたリポジトリである。線形回帰から簡易的な Transformer ブロックまで、最小限のコードで確認できるサンプル。
+学習用リポジトリ。PyTorch を使った小さな機械学習/LLM 実験をまとめたリポジトリ。線形回帰、CNN、Transformerの最小サンプル。
 
 ## プロジェクト構成
 - `01_pytorch_tutorial/`
-  - `learn.py`: 3 次元入力に対する線形回帰タスクを `nn.Linear` + `MSELoss` で学習するデモである。
-  - `learn_classify.py`: 犬/猫の特徴量を使った 2 クラス分類であり、Apple Silicon の MPS バックエンドがあれば自動で利用する。
+  - `learn.py`: 3 次元入力に対する線形回帰タスクを `nn.Linear` + `MSELoss` で学習するデモ。
+  - `learn_classify.py`: 2 クラス分類。Apple Silicon の MPS バックエンド利用。
   - `learn_class_decision_boundary.py`: 上記分類器の決定境界をメッシュグリッドで可視化し、`images/learn_class_decision_boundary.png` を生成する。
-  - `minllm.py`: 変換ブロックを組み合わせた小型 GPT 風モデルを定義し、ランダムトークンに対する出力テンソル形状を確認するスクリプトである。
+  - `minllm.py`: 変換ブロックを組み合わせた小型 GPT 風モデルを定義し、ランダムトークンに対する出力テンソル形状を確認するスクリプト。
   - `simplenet.py`: 単一の全結合層 + ReLU でランダム入力の流れと追加線形層の重み/バイアスを観察する。
 - `02_pytorch_mnist/`
   - `mnist.py`: MNIST データセットを使って手書き数字分類器を学習し、損失と精度をレポート。
@@ -18,7 +18,7 @@ PyTorch を使った小さな機械学習/LLM 実験をまとめたリポジト�
 - `03_pytorch_transformer/`
   - `simple_transformer.py`: `TransformerEncoder` を利用した小さな 2 クラス分類モデルを構築し、ダミーの埋め込みベクトルを使って学習と推論の流れを確認できるサンプル。
 - `images/`: チュートリアルの可視化結果を保存するディレクトリ。
-- `requirements.txt`: PyTorch と Matplotlib を含む最小構成の依存パッケージ一覧である。
+- `requirements.txt`: PyTorch と Matplotlib を含む最小構成の依存パッケージ一覧。
 
 ## セットアップ
 1. 仮想環境を作成して有効化する。
