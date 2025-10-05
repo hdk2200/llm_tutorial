@@ -9,7 +9,7 @@ PyTorch を使った小さな機械学習/LLM 実験をまとめたリポジト�
   - `learn_class_decision_boundary.py`: 上記分類器の決定境界をメッシュグリッドで可視化し、`images/learn_class_decision_boundary.png` を生成する。
   - `minllm.py`: 変換ブロックを組み合わせた小型 GPT 風モデルを定義し、ランダムトークンに対する出力テンソル形状を確認するスクリプトである。
   - `simplenet.py`: 単一の全結合層 + ReLU でランダム入力の流れと追加線形層の重み/バイアスを観察する。
-- `02_pythorch_mnist/`
+- `02_pytorch_mnist/`
   - `mnist.py`: MNIST データセットを使って手書き数字分類器を学習し、損失と精度をレポート。
   - `load_and_infer.py`: 学習済み `mnist_mlp.pth` を読み込み、テスト画像の予測ラベルと正解ラベルを並べて可視化。
   - `mnist_dummydata_weightconfirm.py`: ランダム生成したダミーデータで学習を回し、`fc1.weight` の平均値を逐次表示して重み更新を観察。
@@ -43,14 +43,14 @@ python learn_class_decision_boundary.py
 
 ### 実行例2 MNISTを４枚表示する
 ```bash
-cd 02_pythorch_mnist
+cd 02_pytorch_mnist
 python mnistview.py
 ```
 ![実行例2 MNISTを４枚表示する](images/mnistview.png)
 
 ### 実行例3 MNISTを学習済モデルで認識する
 ```bash
-cd 02_pythorch_mnist
+cd 02_pytorch_mnist
 python load_and_infer.py
 ```
 
@@ -180,4 +180,3 @@ Conv2dは 「画像を、複数の“意味ある特徴”に分解する層」
 | 3  | `loss.backward()`                | 勾配計算（どの方向に修正すべきか）  |
 | 4  | `optimizer.step()`               | パラメータ更新（実際に重みを変える） |
 | 5  | `optimizer.zero_grad()`          | 勾配の初期化（次バッチに備える）   |
-
