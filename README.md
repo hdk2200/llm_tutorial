@@ -53,7 +53,7 @@ python mnistview.py
 cd 02_pythorch_mnist
 python load_and_infer.py
 ```
-![MNISTを学習済モデルで認識](images/![alt text](images/load_and_infer01.png).png)
+![MNISTを学習済モデルで認識](images/![alt text](images/load_and_infer01.png)
 
 
 
