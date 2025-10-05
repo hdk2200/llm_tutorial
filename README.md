@@ -15,6 +15,8 @@ PyTorch を使った小さな機械学習/LLM 実験をまとめたリポジト�
   - `mnist_dummydata_weightconfirm.py`: ランダム生成したダミーデータで学習を回し、`fc1.weight` の平均値を逐次表示して重み更新を観察。
   - `mnistview.py`: DataLoader から取り出した 4 枚の手書き数字を並べて表示。
   - `mnistview100.py`: テストデータセット先頭 100 枚を 10×10 グリッドに並べて一括表示。
+- `03_pytorch_transformer/`
+  - `simple_transformer.py`: `TransformerEncoder` を利用した小さな 2 クラス分類モデルを構築し、ダミーの埋め込みベクトルを使って学習と推論の流れを確認できるサンプル。
 - `images/`: チュートリアルの可視化結果を保存するディレクトリ。
 - `requirements.txt`: PyTorch と Matplotlib を含む最小構成の依存パッケージ一覧である。
 
