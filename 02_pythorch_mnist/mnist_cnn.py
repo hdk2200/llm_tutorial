@@ -40,11 +40,8 @@ class ConvNet(nn.Module):
             # | `out_channels=32` | 出力は32チャンネル（＝32個のフィルター）                  |
             # | `kernel_size=3`   | 各フィルターは 3×3 の領域を見て特徴を抽出                 |
             # | `padding=1`       | 端の情報を保つために周囲を1ピクセル分0で囲む（出力サイズが入力と同じになる） |
-            
-
             # Conv2d 「画像を、複数の“意味ある特徴”に分解する層」
-            
-            # 1x28x28 -> 32x28x28
+            # 1x28x28 -> 32x28x28 （32の特徴を作る。32の畳み込みフィルタを作る）
             nn.Conv2d(1, 32, kernel_size=3, padding=1),
             nn.ReLU(),  # ０以上を抽出（負の値を除去し、反応を強調）
 
@@ -89,6 +86,8 @@ for epoch in range(epochs):
     model.train()
     running_loss = 0.0
     for data, target in train_loader:
+        # data : 入力画像 
+        # target: 正解ラベル
         data, target = data.to(device), target.to(device)
         optimizer.zero_grad()
         output = model(data)
