@@ -17,23 +17,37 @@ print("使用デバイス:", device)
 class SimpleNet(nn.Module):
     def __init__(self):
         super().__init__()
-        self.fc1 = nn.Linear(28*28, 100)  
+        self.fc1 = nn.Linear(28 * 28, 100)
         self.fc2 = nn.Linear(100, 10)
 
     def forward(self, x):
-        x = x.view(-1, 28*28)
+        x = x.view(-1, 28 * 28)
         x = torch.relu(self.fc1(x))
         x = self.fc2(x)
         return x
 
-model = SimpleNet().to(device)
+class ConvNet(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.features = nn.Sequential(
+            nn.Conv2d(1, 32, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(2),
+            nn.Conv2d(32, 64, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(2),
+        )
+        self.classifier = nn.Sequential(
+            nn.Flatten(),
+            nn.Linear(64 * 7 * 7, 128),
+            nn.ReLU(),
+            nn.Linear(128, 10),
+        )
 
-# -------------------------
-# 2. モデルのロード
-# -------------------------
-model.load_state_dict(torch.load("mnist_mlp.pth", map_location=device))
-model.eval()
-print("学習済みモデルをロードしました")
+    def forward(self, x):
+        x = self.features(x)
+        x = self.classifier(x)
+        return x
 
 # -------------------------
 # 3. データ準備（テストデータ）
@@ -51,6 +65,20 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Load MNIST model and run inference on test images")
     parser.add_argument("-s", "--start-index", type=int, default=0, help="予測を開始するテストデータのインデックス")
     parser.add_argument("-n", "--count", type=int, default=20, help="表示する画像の枚数")
+    parser.add_argument(
+        "-m",
+        "--model-type",
+        choices=["mlp", "cnn"],
+        default="mlp",
+        help="使用するモデルの種類 (mlp または cnn)",
+    )
+    parser.add_argument(
+        "-w",
+        "--weights",
+        type=str,
+        default=None,
+        help="読み込む学習済みモデルファイルのパス",
+    )
     return parser.parse_args()
 
 
@@ -66,7 +94,23 @@ end_index = min(args.start_index + args.count, len(test_dataset))
 indices = list(range(args.start_index, end_index))
 samples = [(test_dataset[i], i) for i in indices]
 
+if args.model_type == "mlp":
+    model = SimpleNet().to(device)
+    default_weights = "mnist_mlp.pth"
+else:
+    model = ConvNet().to(device)
+    default_weights = "mnist_cnn.pth"
+
+weights_path = args.weights or default_weights
+
+try:
+    state_dict = torch.load(weights_path, map_location=device)
+except FileNotFoundError as exc:
+    raise FileNotFoundError(f"モデルファイルが見つかりません: {weights_path}") from exc
+
+model.load_state_dict(state_dict)
 model.eval()
+print(f"学習済みモデルをロードしました: {weights_path} ({args.model_type})")
 
 cols = 10
 rows = math.ceil(len(samples) / cols)
