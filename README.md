@@ -1,4 +1,4 @@
-# LLM Tutorial
+# Machine Learning・LLM tutorial
 
 学習用リポジトリ。PyTorch を使った小さな機械学習/LLM 実験をまとめたリポジトリ。線形回帰、CNN、Transformerの最小サンプル。
 
@@ -182,3 +182,40 @@ Conv2dは 「画像を、複数の“意味ある特徴”に分解する層」
 | 3  | `loss.backward()`                | 勾配計算（どの方向に修正すべきか）  |
 | 4  | `optimizer.step()`               | パラメータ更新（実際に重みを変える） |
 | 5  | `optimizer.zero_grad()`          | 勾配の初期化（次バッチに備える）   |
+
+
+
+
+# 線形回帰
+入力と出力の直線的関係を求める手法
+点がバラバラに散っているとき、「できるだけ多くの点を通るような直線」を引くのが線形回帰。
+
+```
+    *
+   *     *
+  *   *
+ *      *
+
+```
+
+```
+y=wx+b
+```
+
+![Linear Regression Example](images/LinearRegressionExample.png)
+
+
+nn.Linear(1,16)
+nn.Linear(1,16) は「16個の線形近似関数」から「16個の特徴」を作る
+
+$$
+\begin{align*}
+y_1 &= w_1 x + b_1 \\
+y_2 &= w_2 x + b_2 \\
+&\vdots \\
+y_{16} &= w_{16} x + b_{16}
+\end{align*}
+$$
+
+このときの重みwとバイアスbを学習する
+
